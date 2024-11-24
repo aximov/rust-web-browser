@@ -1,4 +1,4 @@
-workspace = { members = ["rwb_core"] }
+workspace = { members = [ "net/wasabi","rwb_core"] }
 [package]
 name = "rust-web-browser"
 version = "0.1.0"
@@ -6,5 +6,16 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[features]
+default = ["wasabi"]
+wasabi = ["dep:net_wasabi", "dep:noli"]
+
+[[bin]]
+name = "rwb"
+path = "src/main.rs"
+required-features = ["wasabi"]
+
 [dependencies]
-noli = { git = "https://github.com/hikalium/wasabi.git", branch = "for_saba" }
+rwb_core = { path = "./rwb_core" }
+net_wasabi = { path = "./net/wasabi", optional = true }
+noli = { git = "https://github.com/hikalium/wasabi.git", branch = "for_saba", optional = true }
